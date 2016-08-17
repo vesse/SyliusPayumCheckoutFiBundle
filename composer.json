@@ -1,0 +1,20 @@
+{
+    "name": "vesse/sylius-payum-checkout.fi-bundle",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": { "Sylius\\Bundle\\PayumBundle\\CheckoutFi\\" : "src/" }
+    },
+    "require": {
+        "payum/core": "~1.0",
+        "sylius/core": "^0.18",
+        "sylius/order-bundle": "^0.18",
+        "sylius/payment-bundle": "^0.18"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "2.*",
+        "phpunit/phpunit": "5.5.*"
+    },
+    "scripts": {
+        "test": "vendor/bin/phpcs --standard=PSR2 src && vendor/bin/phpunit tests"
+    }
+}
