@@ -34,19 +34,18 @@ class ConvertPaymentToCheckoutFiAction implements ActionInterface
         $order = $payment->getOrder();
 
         $details = $payment->getDetails();
-        $details['stamp'] = $order->getId() . time(); // TODO
-        $details['amount'] = $order->getTotal();
-        $details['reference'] = '48513821'; // TODO
+        $details['stamp']        = $order->getId() . time(); // TODO
+        $details['amount']       = $order->getTotal();
+        $details['reference']    = '48513821'; // TODO
         $details['deliveryDate'] = '20161010'; // TODO
-        $details['currency'] = 'EUR'; //TODO
-
-        $details['firstName'] = $order->getCustomer()->getFirstName();
-        $details['lastName'] = $order->getCustomer()->getLastName();
-        $details['address'] = 'TODO';
-        $details['postCode'] = 'TODO';
-        $details['postOffice'] = 'TODO';
-        $details['email'] = $order->getCustomer()->getEmail();
-        $details['phone'] = $order->getCustomer()->getPhoneNumber();
+        $details['currency']     = $payment->getCurrency();
+        $details['firstName']    = $order->getCustomer()->getFirstName();
+        $details['lastName']     = $order->getCustomer()->getLastName();
+        $details['address']      = $order->getCustomer()->getShippingAddress()->getStreet();
+        $details['postCode']     = $order->getCustomer()->getShippingAddress()->getPostcode();
+        $details['postOffice']   = $order->getCustomer()->getShippingAddress()->getCity();
+        $details['email']        = $order->getCustomer()->getEmail();
+        $details['phone']        = $order->getCustomer()->getPhoneNumber();
 
         $request->setResult($details);
     }
