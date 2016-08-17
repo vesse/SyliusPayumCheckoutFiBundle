@@ -3,12 +3,22 @@
 namespace Sylius\Bundle\PayumBundle\CheckoutFi;
 
 use PHPUnit\Framework\TestCase;
-use Sylius\Bundle\PayumBundle\CheckoutFi\Action\ConvertPaymentToCheckoutFiAction;
+use Sylius\Component\Core\Payment\IdBasedInvoiceNumberGenerator;
 
-class CheckoutFiGatewayTest extends TestCase
+class ConvertPaymentToCheckoutFiActionTest extends TestCase
 {
+    public function setUp()
+    {
+        parent::setUp();
+        $this->generator = new IdBasedInvoiceNumberGenerator;
+    }
+
     public function testCanInstantiate()
     {
-        $this->action = new ConvertPaymentToCheckoutFiAction();
+        $this->action = new Action\ConvertPaymentToCheckoutFiAction($this->generator);
+        $this->assertInstanceOf(
+            'Sylius\Bundle\PayumBundle\CheckoutFi\Action\ConvertPaymentToCheckoutFiAction',
+            $this->action
+        );
     }
 }

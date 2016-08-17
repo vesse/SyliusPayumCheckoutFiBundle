@@ -6,9 +6,7 @@
     },
     "require": {
         "payum/core": "~1.0",
-        "sylius/core": "^0.18",
-        "sylius/order-bundle": "^0.18",
-        "sylius/payment-bundle": "^0.18"
+        "sylius/core": "^0.18"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "2.*",
