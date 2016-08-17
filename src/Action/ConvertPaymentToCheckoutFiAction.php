@@ -64,7 +64,7 @@ class ConvertPaymentToCheckoutFiAction implements ActionInterface
     private static function createReferenceFromId($id)
     {
         $baseRef = (string) $id + 100;
-        return $baseRef . calculateReferenceNumberChecksum($baseRef);
+        return $baseRef . self::calculateReferenceNumberChecksum($baseRef);
     }
 
     /**
