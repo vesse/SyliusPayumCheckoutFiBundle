@@ -36,9 +36,9 @@ class ConvertPaymentToCheckoutFiAction implements ActionInterface
         $order = $payment->getOrder();
 
         $details = $payment->getDetails();
-        $details['stamp']        = $order->getId() . time(); // TODO
+        $details['stamp']        = $order->getId();
         $details['amount']       = $order->getTotal();
-        $details['reference']    = '48513821'; // TODO
+        $details['reference']    = self::createReferenceFromId($order->getId());
         $details['deliveryDate'] = '20161010'; // TODO
         $details['currency']     = $payment->getCurrency();
         $details['firstName']    = $order->getCustomer()->getFirstName();
@@ -59,6 +59,12 @@ class ConvertPaymentToCheckoutFiAction implements ActionInterface
             $request->getSource() instanceof PaymentInterface &&
             $request->getTo() === 'array'
         ;
+    }
+
+    private static function createReferenceFromId($id)
+    {
+        $baseRef = (string) $id + 100;
+        return $baseRef . calculateReferenceNumberChecksum($baseRef);
     }
 
     /**
