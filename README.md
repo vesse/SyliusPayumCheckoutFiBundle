@@ -9,7 +9,6 @@ Define the conversion in `services.xml`:
 ```xml
 <service id="sylius.payum.checkout.fi.action.convert_payment"
          class="Sylius\Bundle\PayumBundle\CheckoutFi\Action\ConvertPaymentToCheckoutFiAction">
-    <argument type="service" id="sylius.invoice_number_generator" />
     <tag name="payum.action" context="checkout_fi" />
 </service>
 ```

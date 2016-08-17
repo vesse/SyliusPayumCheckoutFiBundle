@@ -15,25 +15,11 @@ use Sylius\Component\Core\Payment\InvoiceNumberGeneratorInterface;
  *
  * <service id="sylius.payum.checkout.fi.action.convert_payment"
  *          class="Sylius\Bundle\PayumBundle\CheckoutFi\Action\ConvertPaymentToCheckoutFiAction">
- *     <argument type="service" id="sylius.invoice_number_generator" />
  *     <tag name="payum.action" context="checkout_fi" />
  * </service>
  */
 class ConvertPaymentToCheckoutFiAction implements ActionInterface
 {
-    /**
-     * @var InvoiceNumberGeneratorInterface
-     */
-    private $invoiceNumberGenerator;
-
-    /**
-     * @param InvoiceNumberGeneratorInterface $invoiceNumberGenerator
-     */
-    public function __construct(InvoiceNumberGeneratorInterface $invoiceNumberGenerator)
-    {
-        $this->invoiceNumberGenerator = $invoiceNumberGenerator;
-    }
-
     /**
      * {@inheritdoc}
      *
