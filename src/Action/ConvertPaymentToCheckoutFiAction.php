@@ -42,7 +42,7 @@ class ConvertPaymentToCheckoutFiAction implements ActionInterface
         $details['deliveryDate'] = '20161010'; // TODO
         $details['currency']     = $payment->getCurrency();
         $details['firstName']    = $order->getCustomer()->getFirstName();
-        $details['lastName']     = $order->getCustomer()->getLastName();
+        $details['familyName']   = $order->getCustomer()->getLastName();
         $details['address']      = $order->getCustomer()->getShippingAddress()->getStreet();
         $details['postCode']     = $order->getCustomer()->getShippingAddress()->getPostcode();
         $details['postOffice']   = $order->getCustomer()->getShippingAddress()->getCity();
