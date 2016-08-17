@@ -20,6 +20,8 @@ use Sylius\Component\Core\Payment\InvoiceNumberGeneratorInterface;
  */
 class ConvertPaymentToCheckoutFiAction implements ActionInterface
 {
+    private static $REFNUM_FACTORS = [7, 3, 1];
+
     /**
      * {@inheritdoc}
      *
@@ -57,5 +59,25 @@ class ConvertPaymentToCheckoutFiAction implements ActionInterface
             $request->getSource() instanceof PaymentInterface &&
             $request->getTo() === 'array'
         ;
+    }
+
+    /**
+     * Calculate checksum for a Finnish reference number. It is calculated
+     * by multiplying individiual digits from right to left by 7, 3, 1, 7, ...
+     * and summing the products together, and the result is subtracted from
+     * the next ten. e.g. if reference is 1234, the sum of products is
+     * 7 * 4 + 3 * 3 + 1 * 2 + 7 * 1 = 46 and thus the checksum is 50 - 46 = 4
+     */
+    private static function calculateReferenceNumberChecksum($reference)
+    {
+        $strlen = strlen($reference);
+        $product = 0;
+        for ($i = 0; $i < $strlen; $i++) {
+            $product += substr($reference, $strlen - $i - 1, 1) * self::$REFNUM_FACTORS[$i % 3];
+        }
+
+        $nextFullTen = ceil($product / 10) * 10;
+        $checksum = $nextFullTen - $product;
+        return $checksum == 10 ? 0 : $checksum;
     }
 }
