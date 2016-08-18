@@ -39,7 +39,7 @@ class ConvertPaymentToCheckoutFiAction implements ActionInterface
         $details['stamp']        = $order->getId();
         $details['amount']       = $order->getTotal();
         $details['reference']    = self::createReferenceFromId($order->getId());
-        $details['deliveryDate'] = '20161010'; // TODO
+        $details['deliveryDate'] = self::getDeliveryDate($order);
         $details['currency']     = $payment->getCurrency();
         $details['firstName']    = $order->getCustomer()->getFirstName();
         $details['familyName']   = $order->getCustomer()->getLastName();
@@ -85,5 +85,21 @@ class ConvertPaymentToCheckoutFiAction implements ActionInterface
         $nextFullTen = ceil($product / 10) * 10;
         $checksum = $nextFullTen - $product;
         return $checksum == 10 ? 0 : $checksum;
+    }
+
+    private static function getDeliveryDate($order) {
+        $allItemsAvailableDate = date('Ymd');
+        // Items can be shipped only after they are available
+        foreach ($order->getItems()->toArray() as $item) {
+            if (!$item->getProduct()->isAvailable()) {
+                $itemAvailableDate = $item->getProduct()->getAvailableOn()->format('Ymd');
+                if ($itemAvailableDate > $allItemsAvailableDate) {
+                    $allItemsAvailableDate = $itemAvailableDate;
+                }
+            }
+        }
+        // Deliver the next weekday
+        $deliveryDate = date('Ymd', strtotime($allItemsAvailableDate . ' +1 Weekday'));
+        return $deliveryDate;
     }
 }
