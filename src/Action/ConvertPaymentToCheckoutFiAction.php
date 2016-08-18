@@ -36,7 +36,7 @@ class ConvertPaymentToCheckoutFiAction implements ActionInterface
         $order = $payment->getOrder();
 
         $details = $payment->getDetails();
-        $details['stamp']        = str_replace(microtime(true), '.', '');
+        $details['stamp']        = str_replace('.', '', microtime(true));
         $details['amount']       = $order->getTotal();
         $details['reference']    = $order->getId();
         $details['deliveryDate'] = self::getDeliveryDate($order);
