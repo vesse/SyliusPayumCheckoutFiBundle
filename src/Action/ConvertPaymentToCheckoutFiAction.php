@@ -61,7 +61,8 @@ class ConvertPaymentToCheckoutFiAction implements ActionInterface
         ;
     }
 
-    private static function getDeliveryDate($order) {
+    private static function getDeliveryDate($order)
+    {
         $allItemsAvailableDate = date('Ymd');
         // Items can be shipped only after they are available
         foreach ($order->getItems()->toArray() as $item) {
