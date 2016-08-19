@@ -20,8 +20,6 @@ use Sylius\Component\Core\Payment\InvoiceNumberGeneratorInterface;
  */
 class ConvertPaymentToCheckoutFiAction implements ActionInterface
 {
-    private static $REFNUM_FACTORS = [7, 3, 1];
-
     /**
      * {@inheritdoc}
      *
