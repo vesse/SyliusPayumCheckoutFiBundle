@@ -10,7 +10,8 @@
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "2.*",
-        "phpunit/phpunit": "5.5.*"
+        "phpunit/phpunit": "5.5.*",
+        "mockery/mockery": "^0.9.5"
     },
     "scripts": {
         "test": "vendor/bin/phpcs --standard=PSR2 src && vendor/bin/phpunit tests"
