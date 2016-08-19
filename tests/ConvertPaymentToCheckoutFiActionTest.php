@@ -10,7 +10,6 @@ use Sylius\Component\Core\Model\PaymentInterface;
 
 class ConvertPaymentToCheckoutFiActionTest extends TestCase
 {
-
     public function testCanInstantiate()
     {
         $this->action = new Action\ConvertPaymentToCheckoutFiAction();
@@ -22,7 +21,6 @@ class ConvertPaymentToCheckoutFiActionTest extends TestCase
 
     public function testDetailsConversion()
     {
-
         $shouldDetails = array(
             'test'         => true,
             'amount'       => '12345',
@@ -57,31 +55,31 @@ class ConvertPaymentToCheckoutFiActionTest extends TestCase
         $details = array('test' => true);
 
         $request->shouldReceive('getSource')          ->times(2)->andReturn($payment);
-        $request->shouldReceive('getTo')              ->once()->andReturn('array');
-        $request->shouldReceive('setResult')          ->once()
-            ->with(\Mockery::subset($shouldDetails))
-            ->with(\Mockery::on($validateStamp));
+        $request->shouldReceive('getTo')              ->times(1)->andReturn('array');
+        $request->shouldReceive('setResult')          ->times(1)
+            ->with(m::subset($shouldDetails))
+            ->with(m::on($validateStamp));
 
-        $payment->shouldReceive('getOrder')           ->once()->andReturn($order);
-        $payment->shouldReceive('getDetails')         ->once()->andReturn($details);
-        $payment->shouldReceive('getCurrency')        ->once()->andReturn('EUR');
+        $payment->shouldReceive('getOrder')           ->times(1)->andReturn($order);
+        $payment->shouldReceive('getDetails')         ->times(1)->andReturn($details);
+        $payment->shouldReceive('getCurrency')        ->times(1)->andReturn('EUR');
 
-        $order->shouldReceive('getTotal')             ->once()->andReturn('12345');
-        $order->shouldReceive('getId')                ->once()->andReturn('43121234');
+        $order->shouldReceive('getTotal')             ->times(1)->andReturn('12345');
+        $order->shouldReceive('getId')                ->times(1)->andReturn('43121234');
         $order->shouldReceive('getCustomer')          ->times(7)->andReturn($customer);
-        $order->shouldReceive('getItems')             ->once()->andReturn($items);
+        $order->shouldReceive('getItems')             ->times(1)->andReturn($items);
 
-        $customer->shouldReceive('getFirstName')      ->once()->andReturn('Eemeli');
-        $customer->shouldReceive('getLastName')       ->once()->andReturn('Testimies');
+        $customer->shouldReceive('getFirstName')      ->times(1)->andReturn('Eemeli');
+        $customer->shouldReceive('getLastName')       ->times(1)->andReturn('Testimies');
         $customer->shouldReceive('getShippingAddress')->times(3)->andReturn($shippingAddress);
-        $customer->shouldReceive('getEmail')          ->once()->andReturn('eemeli.testaaja@example.com');
-        $customer->shouldReceive('getPhoneNumber')    ->once()->andReturn('0501234567');
+        $customer->shouldReceive('getEmail')          ->times(1)->andReturn('eemeli.testaaja@example.com');
+        $customer->shouldReceive('getPhoneNumber')    ->times(1)->andReturn('0501234567');
 
-        $shippingAddress->shouldReceive('getStreet')  ->once()->andReturn('Testikuja 14');
-        $shippingAddress->shouldReceive('getPostcode')->once()->andReturn('33200');
-        $shippingAddress->shouldReceive('getCity')    ->once()->andReturn('Tampere');
+        $shippingAddress->shouldReceive('getStreet')  ->times(1)->andReturn('Testikuja 14');
+        $shippingAddress->shouldReceive('getPostcode')->times(1)->andReturn('33200');
+        $shippingAddress->shouldReceive('getCity')    ->times(1)->andReturn('Tampere');
 
-        $items->shouldReceive('toArray')              ->once()->andReturn([$item, $item, $item]);
+        $items->shouldReceive('toArray')              ->times(1)->andReturn([$item, $item, $item]);
         $item->shouldReceive('getProduct')            ->times(6)->andReturn($product);
 
         $product->shouldReceive('isAvailable')        ->times(3)->andReturn(false);
