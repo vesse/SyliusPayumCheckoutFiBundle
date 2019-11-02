@@ -1,5 +1,7 @@
 # SyliusPayumCheckoutFiBundle
 
+**Obsolete** This bundle uses Checkout Finland legacy API and should not be used.
+
 Payment conversion action from Sylius/Payum to [omnipay-checkout.fi](https://github.com/vesse/omnipay-checkout.fi) gateway
 
 ## Usage
